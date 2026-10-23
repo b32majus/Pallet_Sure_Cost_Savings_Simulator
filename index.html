@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#082b51">
+  <meta name="description" content="Calcula el coste estimado de paletizar con film y compáralo con FIXBOX. Simulador de Pallet Sure: sencillo, gratuito y pensado para móviles.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Calcula tu ahorro en paletización | Pallet Sure">
+  <meta property="og:description" content="Compara tu coste actual de film y manipulación con una solución reutilizable FIXBOX.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <title>Calcula tu ahorro en paletización · Pallet Sure</title>
+</head>
+<body>
+  <a class="skip-link" href="#calculadora">Ir al simulador</a>
+  <header class="site-header">
+    <div class="container header-content">
+      <a class="brand" href="https://palletsure.com/" target="_blank" rel="noopener noreferrer" aria-label="Pallet Sure, visitar la web oficial">
+        <span class="brand-logo"><img src="assets/logo-palletsure.png" alt="" width="42" height="42"></span>
+        <span class="brand-copy"><strong>PALLET <span>SURE</span></strong><small>Innovación en paletización</small></span>
+      </a>
+      <a class="header-link" href="https://palletsure.com/" target="_blank" rel="noopener noreferrer">Nuestra web <span aria-hidden="true">↗</span></a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <span class="eyebrow"><span class="eyebrow-dot"></span> SIMULADOR DE AHORRO · FIXBOX</span>
+          <h1 id="hero-title">¿Cuánto podrías <em>ahorrar</em> en tu paletización?</h1>
+          <p>Descubre cuánto te cuesta hoy utilizar film plástico y compara tu operativa con una alternativa reutilizable. Con tus datos, sin complicaciones.</p>
+          <div class="hero-actions">
+            <a href="#calculadora" class="btn btn-primary">Calcular mi ahorro <span aria-hidden="true">→</span></a>
+            <span class="hero-caption">Gratis · Sin registro · 2 minutos</span>
+          </div>
+          <div class="hero-features"><span>✓ Cálculo personalizado</span><span>✓ Resultado al instante</span></div>
+        </div>
+        <div class="hero-visual" aria-label="Sistema FIXBOX aplicado a cajas de transporte">
+          <img src="assets/fixbox-cajas.webp" alt="Detalle de un sistema de fijación FIXBOX instalado entre cajas de transporte" width="598" height="810">
+          <div class="photo-badge"><span class="badge-icon">↗</span><span><strong>Menos consumibles.</strong><small>Más eficiencia.</small></span></div>
+          <div class="hero-visual-accent" aria-hidden="true"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="trust-strip" aria-label="Características de la calculadora"><div class="container trust-grid">
+      <span><span class="trust-icon">01</span> Indica tu consumo</span>
+      <span><span class="trust-icon">02</span> Ajusta tu escenario FIXBOX</span>
+      <span><span class="trust-icon">03</span> Descubre el resultado</span>
+    </div></section>
+
+    <section id="calculadora" class="calculator-section" aria-labelledby="calculator-title">
+      <div class="container content-width">
+        <div class="section-heading"><div><span class="section-kicker">TU ESTIMACIÓN</span><h2 id="calculator-title">Calcula con tus propios datos</h2><p>Todos los importes son editables. Si aún no tienes cifras, puedes probar un ejemplo para entender el cálculo.</p></div><button id="demoButton" class="text-action" type="button">↻ Cargar ejemplo</button></div>
+        <div class="calculator-shell">
+          <div class="steps" aria-label="Progreso del simulador">
+            <div class="step current" data-progress="1"><span class="step-number">1</span><span class="step-label">Tu operativa</span></div>
+            <div class="step-track" aria-hidden="true"></div>
+            <div class="step" data-progress="2"><span class="step-number">2</span><span class="step-label">Con FIXBOX</span></div>
+            <div class="step-track" aria-hidden="true"></div>
+            <div class="step" data-progress="3"><span class="step-number">3</span><span class="step-label">Tu resultado</span></div>
+          </div>
+          <div id="demoBanner" class="demo-banner" role="status" hidden>Estás viendo <strong>valores de demostración procedentes del Excel</strong>. No representan una oferta ni un ahorro garantizado.</div>
+          <form id="calcForm" novalidate>
+            <div class="form-step" data-step="1">
+              <div class="step-heading"><div class="step-tag">PASO 1 DE 2</div><h3>Cuéntanos cómo paletizas ahora</h3><p>Necesitamos cinco datos de tu operativa habitual con film.</p></div>
+              <div class="fields-grid">
+                <div class="field field-wide"><label for="pallets">¿Cuántos palés preparas al año? <span class="required">*</span></label><div class="input-wrap"><input id="pallets" name="pallets" inputmode="numeric" type="number" min="1" step="1" placeholder="Ej. 500" required><span class="suffix">palés/año</span></div><small>Si trabajas por mes, multiplica la media mensual por 12.</small><span class="field-error" data-error="pallets"></span></div>
+                <div class="field"><label for="filmKg">Film utilizado por palé <span class="required">*</span></label><div class="input-wrap"><input id="filmKg" name="filmKg" type="number" min="0" step="any" inputmode="decimal" placeholder="Ej. 0,5" required><span class="suffix">kg</span></div><small>Peso medio de film consumido.</small><span class="field-error" data-error="filmKg"></span></div>
+                <div class="field"><label for="filmPrice">Precio del film <span class="required">*</span></label><div class="input-wrap"><input id="filmPrice" name="filmPrice" type="number" min="0" step="any" inputmode="decimal" placeholder="Ej. 2,50" required><span class="suffix">€/kg</span></div><small>Precio sin IVA, según factura.</small><span class="field-error" data-error="filmPrice"></span></div>
+                <div class="field"><label for="filmTime">Tiempo con film por palé <span class="required">*</span></label><div class="input-wrap"><input id="filmTime" name="filmTime" type="number" min="0" step="any" inputmode="decimal" placeholder="Ej. 150" required><span class="suffix">segundos</span></div><small>Enfardado y retirada, si procede.</small><span class="field-error" data-error="filmTime"></span></div>
+                <div class="field"><label for="hourlyCost">Coste laboral por hora <span class="required">*</span></label><div class="input-wrap"><input id="hourlyCost" name="hourlyCost" type="number" min="0" step="any" inputmode="decimal" placeholder="Ej. 15" required><span class="suffix">€/hora</span></div><small>Coste de empresa, no salario neto.</small><span class="field-error" data-error="hourlyCost"></span></div>
+              </div>
+              <div class="form-footer"><span class="form-privacy">↳ No guardamos ni enviamos tus datos.</span><button class="btn btn-primary" type="button" id="toStep2">Siguiente: FIXBOX <span aria-hidden="true">→</span></button></div>
+            </div>
+
+            <div class="form-step" data-step="2" hidden>
+              <div class="step-heading"><div class="step-tag">PASO 2 DE 2</div><h3>Configuremos el escenario FIXBOX</h3><p>Introduce los costes y usos estimados para tu circuito. Evita utilizar precios de muestra como si fueran tarifas comerciales.</p></div>
+              <div class="fields-grid">
+                <div class="field"><label for="fixPrice">Precio unitario FIXBOX <span class="required">*</span></label><div class="input-wrap"><input id="fixPrice" name="fixPrice" type="number" min="0" step="any" inputmode="decimal" placeholder="Ej. 5" required><span class="suffix">€/ud.</span></div><small>Usa tu precio presupuestado, sin IVA.</small><span class="field-error" data-error="fixPrice"></span></div>
+                <div class="field"><label for="cycles">Vida útil estimada <span class="required">*</span></label><div class="input-wrap"><input id="cycles" name="cycles" type="number" min="1" step="1" inputmode="numeric" placeholder="Ej. 1000" required><span class="suffix">usos/ud.</span></div><small>Hipótesis de reutilización, no garantía.</small><span class="field-error" data-error="cycles"></span></div>
+                <div class="field"><label for="piecesPerPallet">Piezas por palé <span class="required">*</span></label><div class="input-wrap"><input id="piecesPerPallet" name="piecesPerPallet" type="number" min="1" step="1" inputmode="numeric" value="1" required><span class="suffix">uds.</span></div><small>Confirma la configuración según la carga.</small><span class="field-error" data-error="piecesPerPallet"></span></div>
+                <div class="field"><label for="inventory">Piezas a adquirir inicialmente <span class="required">*</span></label><div class="input-wrap"><input id="inventory" name="inventory" type="number" min="1" step="1" inputmode="numeric" value="1" required><span class="suffix">uds.</span></div><small>Según palés simultáneos y retorno real.</small><span class="field-error" data-error="inventory"></span></div>
+                <div class="field field-wide"><label for="fixTime">Tiempo de fijación y retirada por palé <span class="required">*</span></label><div class="input-wrap"><input id="fixTime" name="fixTime" type="number" min="0" step="any" inputmode="decimal" placeholder="Ej. 10" required><span class="suffix">segundos</span></div><small>Usa una medida de tu proceso, no una promesa de producto.</small><span class="field-error" data-error="fixTime"></span></div>
+              </div>
+              <details class="advanced-settings"><summary><span>＋</span> Ajustes adicionales <small>retorno, pérdidas e impuesto</small></summary>
+                <div class="advanced-fields"><div class="field"><label for="returnCost">Logística de retorno por palé</label><div class="input-wrap"><input id="returnCost" name="returnCost" type="number" min="0" step="any" inputmode="decimal" value="0"><span class="suffix">€/palé</span></div><small>Coste incremental imputable a FIXBOX.</small></div>
+                <div class="field"><label for="lossRate">Reposición por pérdidas o roturas</label><div class="input-wrap"><input id="lossRate" name="lossRate" type="number" min="0" max="100" step="any" inputmode="decimal" value="0"><span class="suffix">% usos</span></div><small>Además del desgaste estimado por vida útil.</small></div>
+                <div class="tax-block"><label class="switch-row" for="applyTax"><input id="applyTax" name="applyTax" type="checkbox"><span class="toggle" aria-hidden="true"></span><span><strong>Añadir impuesto al plástico por separado</strong><small>Actívalo solo si no está incluido en el precio del film y realmente es un coste aplicable.</small></span></label><div id="taxInputs" class="tax-extra" hidden>
+                  <div class="field"><label for="taxRate">Tipo aplicado</label><div class="input-wrap"><input id="taxRate" name="taxRate" type="number" min="0" step="any" value="0.45" inputmode="decimal"><span class="suffix">€/kg</span></div></div>
+                  <div class="field"><label for="nonRecycled">Fracción no reciclada</label><div class="input-wrap"><input id="nonRecycled" name="nonRecycled" type="number" min="0" max="100" step="any" value="100" inputmode="decimal"><span class="suffix">%</span></div></div>
+                </div><small><a href="https://sede.agenciatributaria.gob.es/Sede/impuestos-especiales-medioambientales/impuesto-especial-sobre-envases-plastico-reutilizables/base-imponible-tipo-impositivo-cuota-tributaria.html" target="_blank" rel="noopener noreferrer">Consulta el criterio de la Agencia Tributaria ↗</a></small></div></div>
+              </details>
+              <div class="form-footer"><button class="btn btn-quiet" type="button" id="backStep1">← Volver</button><button class="btn btn-primary" type="button" id="toResults">Ver mi estimación <span aria-hidden="true">→</span></button></div>
+            </div>
+
+            <div class="form-step results-step" data-step="3" hidden>
+              <div class="results-heading"><div><div class="step-tag">TU COMPARATIVA PERSONALIZADA</div><h3>Así se comparan los costes</h3><p>Escenario anual estimado, antes de IVA.</p></div><button type="button" id="editResults" class="btn btn-outline btn-small">✎ Editar datos</button></div>
+              <div class="hero-result" id="mainResult" aria-live="polite"><div class="hero-result-label">DIFERENCIA ANUAL ESTIMADA</div><div class="hero-result-number" id="annualSavings">—</div><p id="resultSummary">Completa los datos para obtener tu comparativa.</p><span class="result-qualifier">Estimación orientativa, no ahorro garantizado.</span></div>
+              <div class="kpi-grid"><div class="kpi-card"><span>Coste actual con film</span><strong id="filmAnnual">—</strong><small>€/año</small></div><div class="kpi-card"><span>Coste anual con FIXBOX</span><strong id="fixAnnual">—</strong><small>€/año, incluyendo desgaste estimado</small></div><div class="kpi-card"><span>Tiempo recuperado</span><strong id="timeSaved">—</strong><small id="timePct">horas anuales</small></div></div>
+              <div class="comparison"><div class="comparison-heading"><h4>Comparativa de costes anuales</h4><p>La escala se adapta a tus cifras.</p></div><div class="bar-row"><div class="bar-label"><span>Con film</span><strong id="barFilmNum">—</strong></div><div class="bar-track"><div class="bar-fill film" id="barFilm"></div></div></div><div class="bar-row"><div class="bar-label"><span>Con FIXBOX</span><strong id="barFixNum">—</strong></div><div class="bar-track"><div class="bar-fill fix" id="barFix"></div></div></div></div>
+              <div class="results-details"><div><h4>Detalle del cálculo</h4><p>Para que veas exactamente de dónde sale cada importe.</p></div><div class="details-tables"><div class="detail-group"><div class="detail-title">Costes con film</div><div class="detail-row"><span>Consumible</span><strong id="costFilmMaterial">—</strong></div><div class="detail-row"><span>Mano de obra</span><strong id="costFilmLabor">—</strong></div><div class="detail-row"><span>Impuesto adicional aplicable</span><strong id="costFilmTax">—</strong></div></div><div class="detail-group"><div class="detail-title">Costes con FIXBOX</div><div class="detail-row"><span>Mano de obra</span><strong id="costFixLabor">—</strong></div><div class="detail-row"><span>Desgaste / amortización por uso</span><strong id="costFixWear">—</strong></div><div class="detail-row"><span>Retorno logístico</span><strong id="costFixReturns">—</strong></div><div class="detail-row"><span>Pérdidas o reposiciones</span><strong id="costFixLoss">—</strong></div></div></div></div>
+              <div class="investment-panel"><div><span class="investment-label">INVERSIÓN INICIAL ESTIMADA</span><strong id="initialInvestment">—</strong><small>Precio unitario × unidades adquiridas</small></div><div><span class="investment-label">RECUPERACIÓN SIMPLE ESTIMADA</span><strong id="payback">—</strong><small>Sobre ahorro de caja anual, sin duplicar amortización</small></div></div>
+              <div class="advisory" id="advisory" role="status"><strong>Antes de decidir</strong><p>Los resultados dependen de la carga, el circuito logístico, las rotaciones efectivas y los valores introducidos. Verifica estos supuestos con Pallet Sure.</p></div>
+              <div class="results-actions"><button class="btn btn-primary" type="button" id="printResults">Guardar como PDF <span aria-hidden="true">↗</span></button><button class="btn btn-outline" type="button" id="shareResults">Compartir resumen</button></div><div id="shareMessage" class="share-message" role="status" aria-live="polite"></div>
+              <div class="form-footer"><button class="btn btn-quiet" type="button" id="backStep2">← Revisar datos</button><button class="btn btn-quiet" type="button" id="resetCalc">Empezar de nuevo ↻</button></div>
+            </div>
+          </form>
+        </div>
+        <div class="below-note"><span class="note-icon" aria-hidden="true">i</span><p>Esta herramienta reproduce y corrige el modelo del Excel «Calculadora Ahorro FixBox»: transforma segundos en horas correctamente y calcula el retorno sobre ahorro de caja. La vida útil y el precio son <strong>hipótesis introducidas por ti</strong>, no garantías ni tarifas oficiales.</p></div>
+      </div>
+    </section>
+    <section class="cta-section"><div class="container cta-content"><div><span class="section-kicker light">PALLET SURE · FIXBOX</span><h2>¿Quieres estudiar tu caso real?</h2><p>Una estimación es el punto de partida. Podemos ayudarte a evaluar configuración, logística, retorno y costes de tu operativa.</p></div><div class="cta-buttons"><a href="https://palletsure.com/" class="btn btn-white" target="_blank" rel="noopener noreferrer">Visitar Pallet Sure ↗</a><a href="mailto:info@palletsure.com?subject=Consulta%20sobre%20simulador%20FIXBOX" class="btn btn-outline-white">Contactar por email</a></div></div></section>
+  </main>
+  <footer class="footer"><div class="container footer-content"><span>© <span id="currentYear">2026</span> Pallet Sure · Simulador orientativo</span><div><a href="https://palletsure.com/" target="_blank" rel="noopener noreferrer">palletsure.com ↗</a><a href="https://palletsure.com/politica-privacidad/" target="_blank" rel="noopener noreferrer">Privacidad</a></div></div></footer>
+  <script src="calculator.js"></script>
+  <script src="app.js" defer></script>
+</body>
+</html>
