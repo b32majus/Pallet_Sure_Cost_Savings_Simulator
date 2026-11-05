@@ -1,6 +1,9 @@
 (function () {
   'use strict';
   const api = window.PalletCalculator;
+  const i18n = window.PalletI18n;
+  const tr = value => i18n.translate(value);
+  const msg = (key, values) => i18n.phrase(key, values);
   const form = document.getElementById('calcForm');
   const banner = document.getElementById('demoBanner');
   const inputs = Array.from(form.querySelectorAll('input'));
@@ -41,7 +44,7 @@
       const input = form.elements.namedItem(name);
       if (input && input instanceof HTMLElement) input.setAttribute('aria-invalid','true');
       const err = form.querySelector(`[data-error="${name}"]`);
-      if (err) err.textContent = message;
+      if (err) err.textContent = tr(message);
     }
     if (Object.keys(errors).length) {
       const firstName = Object.keys(errors)[0];
@@ -59,11 +62,11 @@
     put('annualSavings',money.format(result.savings));
     const isLoss = result.savings < 0;
     byId('mainResult').classList.toggle('negative',isLoss);
-    put('resultSummary', isLoss ? 'Con los datos introducidos, FIXBOX presenta un coste anual superior al film.' : result.savings === 0 ? 'Con los datos introducidos, ambos escenarios presentan el mismo coste anual.' : `Con estas hipótesis, FIXBOX supondría un ${decimal.format(result.savingsPct ?? 0)} % menos de coste anual.`);
+    put('resultSummary', isLoss ? msg('loss') : result.savings === 0 ? msg('equal') : msg('savings',{percent:decimal.format(result.savingsPct ?? 0)}));
     put('filmAnnual',money.format(result.filmTotal));
     put('fixAnnual',money.format(result.fixTotal));
     put('timeSaved',decimal.format(Math.abs(result.savedHours))+' h');
-    put('timePct', result.savedHours < 0 ? 'horas adicionales al año' : `horas anuales · ${decimal.format(result.savedTimePct ?? 0)} % menos tiempo`);
+    put('timePct', result.savedHours < 0 ? msg('addedHours') : msg('savedTime',{percent:decimal.format(result.savedTimePct ?? 0)}));
     put('barFilmNum',money.format(result.filmTotal));
     put('barFixNum',money.format(result.fixTotal));
     const scale = Math.max(1,result.filmTotal,result.fixTotal);
@@ -74,18 +77,18 @@
       put(target,money.format(result[name]));
     });
     put('initialInvestment',money.format(result.initialInvestment));
-    let p = 'No se amortiza';
+    let p = msg('noPayback');
     if(result.paybackMonths !== null){
-      p = result.paybackMonths < 1 ? `≈ ${decimal.format(result.paybackMonths * 365 / 12)} días` : `≈ ${decimal.format(result.paybackMonths)} meses`;
+      p = result.paybackMonths < 1 ? msg('days',{number:decimal.format(result.paybackMonths * 365 / 12)}) : msg('months',{number:decimal.format(result.paybackMonths)});
     }
     put('payback',p);
     const cautions = [
-      'No se incluyen gastos de implantación, mantenimiento, mermas o compatibilidad de carga que no se hayan introducido.',
-      ...result.feasibilityWarnings
+      tr('No se incluyen gastos de implantación, mantenimiento, mermas o compatibilidad de carga que no se hayan introducido.'),
+      ...result.feasibilityWarnings.map(tr)
     ];
     put('advisory', '');
     const advisory = byId('advisory');
-    const strong = document.createElement('strong');strong.textContent='Antes de decidir';
+    const strong = document.createElement('strong');strong.textContent=tr('Antes de decidir');
     const para = document.createElement('p');para.textContent=cautions.join(' ');
     advisory.append(strong,para);
   }
@@ -121,12 +124,24 @@
   byId('shareResults').addEventListener('click',async()=>{
     if(!lastResult)return;
     const r=lastResult;
-    const message=`Simulador Pallet Sure · FIXBOX\nPalés/año: ${decimal.format(r.inputs.pallets)}\nCoste anual con film: ${money.format(r.filmTotal)}\nCoste anual con FIXBOX: ${money.format(r.fixTotal)}\nDiferencia anual estimada: ${money.format(r.savings)}\nInversión inicial: ${money.format(r.initialInvestment)}\n\nEstimación orientativa basada en datos introducidos por el usuario. No es una oferta ni una garantía de ahorro.\n${location.protocol.startsWith('http')?location.href:''}`;
+    const message = msg('shareBody', {pallets:decimal.format(r.inputs.pallets),film:money.format(r.filmTotal),fix:money.format(r.fixTotal),savings:money.format(r.savings),investment:money.format(r.initialInvestment),url:location.protocol.startsWith('http')?location.href:''});
     try{
-      if(navigator.share){await navigator.share({title:'Mi estimación FIXBOX · Pallet Sure',text:message});put('shareMessage','');}
-      else if(navigator.clipboard?.writeText){await navigator.clipboard.writeText(message);put('shareMessage','Resumen copiado al portapapeles.');}
-      else{window.prompt('Copia este resumen:',message);}
-    }catch(e){if(e.name!=='AbortError')put('shareMessage','No se ha podido compartir. Puedes guardarlo como PDF.');}
+      if(navigator.share){await navigator.share({title:msg('shareTitle'),text:message});put('shareMessage','');}
+      else if(navigator.clipboard?.writeText){await navigator.clipboard.writeText(message);put('shareMessage',tr('Resumen copiado al portapapeles.'));}
+      else{window.prompt(tr('Copia este resumen:'),message);}
+    }catch(e){if(e.name!=='AbortError')put('shareMessage',tr('No se ha podido compartir. Puedes guardarlo como PDF.'));}
+  });
+  i18n.onChange(() => {
+    if (lastResult) render(lastResult);  // Rebuild every result and PDF section in the chosen language.
+    const fields = step === 1 ? ['pallets','filmKg','filmPrice','filmTime','hourlyCost'] : ['fixPrice','cycles','piecesPerPallet','inventory','fixTime'];
+    const errors = api.validate(getRaw(),fields);
+    form.querySelectorAll('[data-error]').forEach(element => {
+      if (element.textContent.trim()) element.textContent = errors[element.dataset.error] ? tr(errors[element.dataset.error]) : '';
+    });
+    const notice = byId('shareMessage');
+    if (notice.textContent.trim()) {
+      notice.textContent = i18n.language === 'en' ? 'Summary is available in the selected language. Share again to copy it.' : 'El resumen está disponible en el idioma seleccionado. Compártelo de nuevo para copiarlo.';
+    }
   });
   form.addEventListener('submit',e=>e.preventDefault());
   byId('currentYear').textContent = new Date().getFullYear();

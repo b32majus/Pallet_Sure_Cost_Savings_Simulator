@@ -1,0 +1,9 @@
+/* Language control: only interface styling; no impact on calculation or A4 report. */
+.header-tools{display:flex;align-items:center;gap:12px;flex-shrink:0}
+.language-switch{display:inline-flex;align-items:center;gap:2px;padding:4px;border:1px solid rgba(255,255,255,.32);border-radius:999px;background:rgba(255,255,255,.08);white-space:nowrap}
+.language-switch button{font:inherit;cursor:pointer;border:0;background:transparent;color:#d5e7f2;border-radius:999px;min-width:37px;min-height:32px;padding:6px 9px;font-size:12px;font-weight:800;transition:background .15s,color .15s}
+.language-switch button:hover{background:rgba(255,255,255,.14);color:#fff}
+.language-switch button.active{background:#fff;color:#082b51}
+.language-switch button:focus-visible{outline:3px solid #27bba8;outline-offset:2px}
+@media(max-width:600px){.header-link{display:none}.header-tools{margin-left:auto}.language-switch button{min-width:35px;min-height:32px}}
+@media print{.header-tools{display:none!important}}

@@ -24,7 +24,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Verify calculation engine
-        run: node --test tests/calculator.test.cjs
+        run: node --test tests/*.test.cjs
       - name: Configure Pages
         uses: actions/configure-pages@v5
         with:

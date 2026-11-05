@@ -88,3 +88,15 @@ Si tienes Node.js: `node --test tests/calculator.test.cjs`.
 - `tests/calculator.test.cjs`: pruebas del motor.
 
 © Pallet Sure. Material de campaña reutilizado de la imagen aportada por la propietaria de la solicitud.
+
+## Español / English (ES / EN)
+
+El selector de idioma se encuentra en la esquina superior derecha. Traduce toda la interfaz (incluidos los campos, avisos, errores y resultados), conserva los datos al cambiar de idioma y recuerda la selección en el navegador. «Guardar como PDF» imprime la comparativa en el mismo idioma que se esté mostrando y mantiene el diseño A4 de una página.
+
+El selector **no cambia** la moneda (EUR), los importes de ejemplo ni los cálculos de `calculator.js`. `i18n.js` contiene las traducciones y `language.css` los estilos del botón. La hoja de impresión continúa en `print-a4.css`.
+
+Pruebas del cálculo y de las traducciones:
+
+```bash
+node --test tests/*.test.cjs
+```
